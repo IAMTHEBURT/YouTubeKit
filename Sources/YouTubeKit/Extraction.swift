@@ -283,7 +283,7 @@ class Extraction {
         for (i, stream) in streamManifest.enumerated() {
             if let url = stream.url {
                 if url.contains("signature") || (stream.s == nil && (url.contains("&sig=") || url.contains("&lsig="))) {
-                    os_log("signature found, skip decipher", log: log, type: .debug)
+                    //os_log("signature found, skip decipher", log: log, type: .debug)
                     continue
                 }
                 
