@@ -46,17 +46,19 @@ public class YouTube {
     
     let useOAuth: Bool
     let allowOAuthCache: Bool
+    let client: ClientType
     
-    public init(videoID: String, proxies: [String: URL] = [:], useOAuth: Bool = false, allowOAuthCache: Bool = false) {
+    public init(videoID: String, proxies: [String: URL] = [:], useOAuth: Bool = false, allowOAuthCache: Bool = false, client: ClientType = .androidEmbed) {
         self.videoID = videoID
         self.useOAuth = useOAuth
         self.allowOAuthCache = allowOAuthCache
+        self.client = client
         // TODO: install proxies if needed
     }
     
-    public convenience init(url: URL, proxies: [String: URL] = [:], useOAuth: Bool = false, allowOAuthCache: Bool = false) {
+    public convenience init(url: URL, proxies: [String: URL] = [:], useOAuth: Bool = false, allowOAuthCache: Bool = false, client: ClientType = .androidEmbed) {
         let videoID = Extraction.extractVideoID(from: url.absoluteString) ?? ""
-        self.init(videoID: videoID, proxies: proxies, useOAuth: useOAuth, allowOAuthCache: allowOAuthCache)
+        self.init(videoID: videoID, proxies: proxies, useOAuth: useOAuth, allowOAuthCache: allowOAuthCache, client: client)
     }
     
     
@@ -223,7 +225,7 @@ public class YouTube {
                 return cached
             }
             
-            let innertube = InnerTube(useOAuth: useOAuth, allowCache: allowOAuthCache)
+            let innertube = InnerTube(client: client, useOAuth: useOAuth, allowCache: allowOAuthCache)
             
             let innertubeResponse = try await innertube.player(videoID: videoID)
             _videoInfo = innertubeResponse

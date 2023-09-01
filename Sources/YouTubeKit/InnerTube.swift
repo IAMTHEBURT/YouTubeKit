@@ -51,10 +51,6 @@ class InnerTube {
         ClientType.iosMusic: Client(name: "IOS_MUSIC", version: "5.21", screen: nil, apiKey: "AIzaSyC5jUQ3J8NM98_Uyo01fb2QXug-3Jzm9nw", userAgent: "com.google.ios.youtubemusic/5.21 (iPhone14,3; U; CPU iOS 15_6 like Mac OS X)")
     ]
     
-    enum ClientType {
-        case web, android, androidMusic, webEmbed, androidEmbed, tvEmbed, ios, iosMusic
-    }
-    
     private var accessToken: String?
     private var refreshToken: String?
     
@@ -243,5 +239,8 @@ class InnerTube {
         ]
         return try await callAPI(endpoint: baseURL + "/get_transcript", query: query, object: baseData)
     }
-    
+}
+
+public enum ClientType {
+    case web, android, androidMusic, webEmbed, androidEmbed, tvEmbed, ios, iosMusic
 }
